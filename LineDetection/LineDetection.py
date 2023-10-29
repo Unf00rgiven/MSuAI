@@ -140,7 +140,6 @@ def get_curve(img, leftx, rightx):
     # Curvature in meters
     return (left_curverad, right_curverad, center)
 
-
 def draw_lanes(img, left_fit, right_fit):
     # Draw vehicle path on road
     ploty = np.linspace(0, img.shape[0] - 1, img.shape[0])

@@ -41,6 +41,7 @@ def get_calibration_images():
         if image is not None:
             images.append(image)
     return images
+
 def calibrate_camera():
     # Dont need to calibrate camera for every frame, calculate once and then save and use them
     calibration_images = get_calibration_images()

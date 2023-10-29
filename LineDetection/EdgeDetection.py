@@ -1,14 +1,6 @@
 import numpy as np
 import cv2
 
-# Threshold
-low_threshold = 50
-high_threshold = 150
-
-def get_edges(image, low_threshold=50, high_threshold=150):
-    """Applies Canny edge detection on the image."""
-    edges = cv2.Canny(image, low_threshold, high_threshold, apertureSize=3)
-    return edges
 def filter_lanes_rgb(image):
     # Convert the image to HSV
     hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
