@@ -3,23 +3,19 @@ import cv2
 import Undisorting
 import EdgeDetection
 import PerspectiveTransform
-import NoiseRemoval
 import LineDetection
 
 def process_frame(frame):
     # Step 1 - Undistortion
     undistorted_image = Undisorting.undistort(frame, None)
 
-    # Step 2 - Noise removal
-    gausian_image = NoiseRemoval.remove_gaussian_noise(undistorted_image)
+    # Step 2 - Binary image
+    binary_image = EdgeDetection.filter_lanes_rgb(undistorted_image)
 
-    # Step 3 - Binary image
-    binary_image = EdgeDetection.filter_lanes_rgb(gausian_image)
-
-    # Step 4 - Perspective transformation
+    # Step 3 - Perspective transformation
     transformed_image = PerspectiveTransform.warper(binary_image, 'birdPerspective')
 
-    # Step 5 - Find lines, draw vehicle path and get perspective back
+    # Step 4 - Find lines, draw vehicle path and get perspective back
     out_img, (left_fitx, right_fitx), (left_fit, right_fit), ploty = LineDetection.sliding_window(transformed_image)
     left_curverad, right_curverad, center = LineDetection.get_curve(transformed_image, left_fitx, right_fitx)
     lane_image = LineDetection.draw_lanes(frame, left_fitx, right_fitx)
